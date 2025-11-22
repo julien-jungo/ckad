@@ -121,7 +121,29 @@ spec:
 
 #### Resources
 
-
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: resource-checker
+  name: resource-checker
+  namespace: limit
+spec:
+  containers:
+  - image: httpd:alpine
+    name: my-container
+    resources:
+      limits:
+        cpu: 300m
+        memory: 30Mi
+      requests:
+        cpu: 30m
+        memory: 30Mi
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
+```
 
 ### Services
 
