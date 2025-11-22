@@ -94,12 +94,22 @@ k -n sun expose -h
 k -n sun expose deploy sunny --name sun-srv --port 9999 --target-port 80
 ```
 
-### Edit
+### Rollouts
 
-#### Deployments
+#### Rolling Update
 
 ```shell
 k edit deploy wonderful-v1
+```
+
+#### Blue-Green
+
+```shell
+k get deploy wonderful-v1 -o yaml > wonderful-v2.yaml
+vim wonderful-v2.yaml
+k create -f wonderful-v2.yaml
+k edit svc wonderful
+kubectl scale deploy wonderful-v1 --replicas 0
 ```
 
 ## Objects
