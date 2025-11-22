@@ -163,6 +163,49 @@ spec:
       nodePort: 30097
 ```
 
+### Config Maps
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: trauerweide
+data:
+  tree: trauerweide
+```
+
+#### Mounting
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: pod1
+  name: pod1
+spec:
+  containers:
+  - image: nginx:alpine
+    name: pod1
+    resources: {}
+    env:
+    - name: TREE1
+      valueFrom:
+        configMapKeyRef:
+          name: trauerweide
+          key: tree
+    volumeMounts:
+    - name: birke
+      mountPath: "/etc/birke"
+  volumes:
+  - name: birke
+    configMap:
+      name: birke
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
+```
+
 ### Persistent Volumes
 
 ```yaml
