@@ -56,12 +56,22 @@ k config use-context developer
 
 ### Checks
 
+#### Network
+
 ```shell
 k run tmp --restart=Never --rm -i --image=nginx:alpine -- curl -m 5 10.12.2.15
 k run tmp --restart=Never --rm -i --image=nginx:alpine -- curl -m 5 earth-2x3-api-svc.earth:4546
 ```
 
-### Pods
+#### Pods
+
+```shell
+k exec -it pod1 -- /bin/sh
+```
+
+### Create
+
+#### Pods
 
 ```shell
 k run resource-checker --image=httpd:alpine -n=limit --dry-run=client -o=yaml > resource-checker.yaml
@@ -69,7 +79,7 @@ vim resource-checker.yaml
 ka resource-checker.yaml
 ```
 
-### Deployments
+#### Deployments
 
 ```shell
 k -n sun create deploy -h
@@ -77,7 +87,7 @@ k -n sun create deploy sunny --image=nginx:1.17.3-alpine --dry-run=client -o=yam
 vim sunny.yaml
 ```
 
-### Services
+#### Services
 
 ```shell
 k -n sun expose -h
