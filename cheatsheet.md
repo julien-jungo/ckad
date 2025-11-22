@@ -94,6 +94,14 @@ k -n sun expose -h
 k -n sun expose deploy sunny --name sun-srv --port 9999 --target-port 80
 ```
 
+### Edit
+
+#### Deployments
+
+```shell
+k edit deploy wonderful-v1
+```
+
 ## Objects
 
 ### Pods
