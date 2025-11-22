@@ -40,20 +40,21 @@ alias ka='kubectl apply -f'
 
 ## Commands
 
+### Contexts
+
+```shell
+k config -h
+k config get-contexts
+k config set-context --current --namespace=development
+k config set-context developer --cluster=kubernetes --namespace=development --user=martin
+k config use-context developer
+```
+
 ### Checks
 
 ```shell
 k run tmp --restart=Never --rm -i --image=nginx:alpine -- curl -m 5 10.12.2.15
 k run tmp --restart=Never --rm -i --image=nginx:alpine -- curl -m 5 earth-2x3-api-svc.earth:4546
-```
-
-### Config
-
-```shell
-k config view --minify
-k config set-context --current --namespace=development
-k config set-context developer --cluster=kubernetes --namespace=development --user=martin
-k config use-context developer
 ```
 
 ### Deployments
