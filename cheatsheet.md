@@ -16,6 +16,15 @@ CTRL+SHIFT+C
 CTRL+SHIFT+V
 ```
 
+## Vim Settings
+
+```text
+# ~/.vimrc
+set expandtab
+set tabstop=2
+set shiftwidth=2
+```
+
 ## Aliases
 
 ```shell
