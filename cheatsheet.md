@@ -155,6 +155,40 @@ spec:
 status: {}
 ```
 
+#### Readiness Probe
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: space-alien-welcome-message-generator
+  name: space-alien-welcome-message-generator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: space-alien-welcome-message-generator
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: space-alien-welcome-message-generator
+    spec:
+      containers:
+      - image: httpd:alpine
+        name: httpd
+        resources: {}
+        readinessProbe:
+          exec:
+            command:
+            - stat
+            - /tmp/ready
+          initialDelaySeconds: 10
+          periodSeconds: 5
+status: {}
+```
+
 ### Services
 
 ```yaml
