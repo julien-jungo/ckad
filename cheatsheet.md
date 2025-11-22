@@ -2,8 +2,17 @@
 
 ## Copy/Paste
 
+### Browser
+
 ```shell
 CTRL+C
+CTRL+V
+```
+
+### Terminal
+
+```shell
+CTRL+SHIFT+C
 CTRL+SHIFT+V
 ```
 
