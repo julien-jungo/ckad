@@ -9,6 +9,12 @@ alias ka='kubectl apply -f'
 
 ## Commands
 
+### Checks
+
+```shell
+kubectl run tmp --restart=Never --rm -i --image=nginx:alpine -- curl -m 5 10.12.2.15
+```
+
 ### Config
 
 ```shell
