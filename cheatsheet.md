@@ -12,16 +12,32 @@ alias ka='kubectl apply -f'
 ### Checks
 
 ```shell
-kubectl run tmp --restart=Never --rm -i --image=nginx:alpine -- curl -m 5 10.12.2.15
+k run tmp --restart=Never --rm -i --image=nginx:alpine -- curl -m 5 10.12.2.15
+k run tmp --restart=Never --rm -i --image=nginx:alpine -- curl -m 5 earth-2x3-api-svc.earth:4546
 ```
 
 ### Config
 
 ```shell
-kubectl config view --minify
-kubectl config set-context --current --namespace=development
-kubectl config set-context developer --cluster=kubernetes --namespace=development --user=martin
-kubectl config use-context developer
+k config view --minify
+k config set-context --current --namespace=development
+k config set-context developer --cluster=kubernetes --namespace=development --user=martin
+k config use-context developer
+```
+
+### Deployments
+
+```shell
+k -n sun create deploy -h
+k -n sun create deploy sunny --image=nginx:1.17.3-alpine --dry-run=client -o=yaml > sunny.yaml
+vim sunny.yaml
+```
+
+### Services
+
+```shell
+k -n sun expose -h
+k -n sun expose deploy sunny --name sun-srv --port 9999 --target-port 80
 ```
 
 ## Resources
