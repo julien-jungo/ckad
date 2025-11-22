@@ -109,7 +109,17 @@ k get deploy wonderful-v1 -o yaml > wonderful-v2.yaml
 vim wonderful-v2.yaml
 k create -f wonderful-v2.yaml
 k edit svc wonderful
-kubectl scale deploy wonderful-v1 --replicas 0
+k scale deploy wonderful-v1 --replicas 0
+```
+
+#### Canary
+
+```shell
+k get deploy wonderful-v1 -o yaml > wonderful-v2.yaml
+vim wonderful-v2.yaml
+k create -f wonderful-v2.yaml
+k scale deploy wonderful-v2 --replicas 2
+k scale deploy wonderful-v1 --replicas 8
 ```
 
 ## Objects
