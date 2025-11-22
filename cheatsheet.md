@@ -57,6 +57,14 @@ k run tmp --restart=Never --rm -i --image=nginx:alpine -- curl -m 5 10.12.2.15
 k run tmp --restart=Never --rm -i --image=nginx:alpine -- curl -m 5 earth-2x3-api-svc.earth:4546
 ```
 
+### Pods
+
+```shell
+k run resource-checker --image=httpd:alpine -n=limit --dry-run=client -o=yaml > resource-checker.yaml
+vim resource-checker.yaml
+ka resource-checker.yaml
+```
+
 ### Deployments
 
 ```shell
