@@ -25,6 +25,12 @@ set tabstop=2
 set shiftwidth=2
 ```
 
+## SSH
+
+```shell
+ssh node01
+```
+
 ## Aliases
 
 ```shell
