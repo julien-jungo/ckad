@@ -1,0 +1,172 @@
+# CKAD Cheat Sheet
+
+## Aliases
+
+```shell
+alias k='kubectl'
+alias ka='kubectl apply -f'
+```
+
+## Commands
+
+### Config
+
+```shell
+kubectl config view --minify
+kubectl config set-context --current --namespace=development
+kubectl config set-context developer --cluster=kubernetes --namespace=development --user=martin
+kubectl config use-context developer
+```
+
+## Resources
+
+### Pods
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jekyll
+  namespace: development
+  labels:
+    run: jekyll
+spec:
+  volumes:
+    - name: site
+      persistentVolumeClaim:
+        claimName: jekyll-site
+  initContainers:
+    - name: copy-jekyll-site
+      image: gcr.io/kodekloud/customimage/jekyll
+      command: ["rm", "-rf", "/site/*", "&&", "jekyll", "new", "/site", "&&", "cd", "/site", "&&", "bundle", "install"]
+      volumeMounts:
+        - mountPath: "/site"
+          name: site
+  containers:
+    - name: jekyll
+      image: "gcr.io/kodekloud/customimage/jekyll-serve"
+      command: ["cd", "/site", "&&", "bundle", "install", "&&", "bundle", "exec", "jekyll", "serve", "--host", "0.0.0.0", "--port", "4000"]
+      ports:
+        - containerPort: 4000
+      volumeMounts:
+        - mountPath: "/site"
+          name: site
+```
+
+### Services
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: jekyll-node-service
+  namespace: development
+spec:
+  type: NodePort
+  selector:
+    run: jekyll
+  ports:
+    - port: 4000
+      targetPort: 4000
+      nodePort: 30097
+```
+
+### Persistent Volumes
+
+```yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jekyll-site
+spec:
+  storageClassName: "local-storage"
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 1Gi
+  hostPath:
+    path: "/mnt/data"
+```
+
+### Persistent Volume Claims
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jekyll-site
+  namespace: development
+spec:
+  storageClassName: local-storage
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+```
+
+### Roles
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: developer-role
+  namespace: development
+rules:
+  - apiGroups: [""]
+    resources: ["services", "persistentvolumeclaims", "pods"]
+    verbs: ["*"]
+```
+
+### Role Bindings
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: developer-rolebinding
+  namespace: development
+subjects:
+  - kind: User
+    name: martin
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: developer-role
+  apiGroup: rbac.authorization.k8s.io
+```
+
+## ~/.kube/config
+
+```yaml
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: ...
+    server: https://controlplane:6443
+  name: kubernetes
+contexts:
+- context:
+    cluster: kubernetes
+    namespace: development
+    user: martin
+  name: developer
+- context:
+    cluster: kubernetes
+    namespace: development
+    user: kubernetes-admin
+  name: kubernetes-admin@kubernetes
+current-context: kubernetes-admin@kubernetes
+kind: Config
+preferences: {}
+users:
+- name: martin
+  user:
+    client-key: /root/martin.key
+    client-certificate: /root/martin.crt
+- name: kubernetes-admin
+  user:
+    client-certificate-data: ...
+    client-key-data: ...
+```
