@@ -1,5 +1,12 @@
 # CKAD Cheat Sheet
 
+## Copy/Paste
+
+```shell
+CTRL+C
+CTRL+SHIFT+V
+```
+
 ## Aliases
 
 ```shell
