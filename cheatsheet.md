@@ -248,6 +248,29 @@ spec:
 status: {}
 ```
 
+### Jobs
+
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: neb-new-job
+  namespace: neptune
+  labels:
+    id: awesome-job
+spec:
+  completions: 3
+  parallelism: 2
+  template:
+    spec:
+      containers:
+      - name: neb-new-job-container
+        image: busybox:1.31.0
+        command: ["/bin/sh"]
+        args: ["-c", "sleep 2 && echo done"]
+      restartPolicy: Never
+```
+
 ### Services
 
 ```yaml
