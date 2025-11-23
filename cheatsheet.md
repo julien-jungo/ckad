@@ -60,7 +60,7 @@ k config use-context developer
 
 ```shell
 k run tmp --restart=Never --rm -i --image=nginx:alpine -- curl -m 5 10.12.2.15
-k run tmp --restart=Never --rm -i --image=nginx:alpine -- curl -m 5 earth-2x3-api-svc.earth:4546
+k run tmp --restart=Never --rm -i --image=nginx:alpine -n space1 -- curl -m 5 microservice1.space2.svc.cluster.local
 ```
 
 #### Pods
