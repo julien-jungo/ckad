@@ -386,6 +386,30 @@ status:
   loadBalancer: {}
 ```
 
+### Network Policies
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: np
+  namespace: space1
+spec:
+  podSelector: {}
+  policyTypes:
+  - Egress
+  egress:
+  - ports:
+    - port: 53
+      protocol: TCP
+    - port: 53
+      protocol: UDP
+  - to:
+     - namespaceSelector:
+        matchLabels:
+         kubernetes.io/metadata.name: space2
+```
+
 ### Custom Resource Definitions (CRD)
 
 ```yaml
