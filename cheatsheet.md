@@ -344,6 +344,49 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 ```
 
+### Custom Resource Definitions (CRD)
+
+```yaml
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: shopping-items.beta.killercoda.com
+spec:
+  group: beta.killercoda.com
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                description:
+                  type: string
+                dueDate:
+                  type: string
+  scope: Namespaced
+  names:
+    plural: shopping-items
+    singular: shopping-item
+    kind: ShoppingItem
+```
+
+#### Custom Objects
+
+```yaml
+apiVersion: beta.killercoda.com/v1
+kind: ShoppingItem
+metadata:
+  name: bananas
+spec:
+  dueDate: tomorrow
+  description: buy yellow ones
+```
+
 ## ~/.kube/config
 
 ```yaml
