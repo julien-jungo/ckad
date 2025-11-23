@@ -513,3 +513,21 @@ spec:
     - --secure-port=6443
     - ...
 ```
+
+## API Versions
+
+### Kubernetes
+
+```shell
+k version
+```
+
+### API Groups
+
+```shell
+k api-resources
+```
+
+```shell
+k explain deploy
+```
