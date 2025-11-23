@@ -352,6 +352,35 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 ```
 
+### Ingress
+
+```yaml
+kind: Ingress
+metadata:
+  name: world
+spec:
+  rules:
+  - host: world.universe.mine
+    http:
+      paths:
+      - backend:
+          service:
+            name: europe
+            port:
+              number: 80
+        path: /europe
+        pathType: Prefix
+      - backend:
+          service:
+            name: asia
+            port:
+              number: 80
+        path: /asia
+        pathType: Prefix
+status:
+  loadBalancer: {}
+```
+
 ### Custom Resource Definitions (CRD)
 
 ```yaml
