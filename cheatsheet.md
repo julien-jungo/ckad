@@ -51,6 +51,15 @@ echo 'test' | base64
 echo 'dGVzdAo=' | base64 -d
 ```
 
+### Docker
+
+```shell
+docker build -t registry.killer.sh:5000/sun-cipher:v1-docker .
+docker push registry.killer.sh:5000/sun-cipher:v1-docker
+docker run -d --name sun-cipher registry.killer.sh:5000/sun-cipher:v1-docker
+docker logs sun-cipher
+```
+
 ### Contexts
 
 ```shell
