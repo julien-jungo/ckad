@@ -355,10 +355,15 @@ roleRef:
 ### Ingress
 
 ```yaml
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: world
+  namespace: world
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  ingressClassName: nginx
   rules:
   - host: world.universe.mine
     http:
