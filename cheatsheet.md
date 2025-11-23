@@ -453,9 +453,10 @@ spec:
   description: buy yellow ones
 ```
 
-## ~/.kube/config
+## Kube Config
 
 ```yaml
+# ~/.kube/config
 apiVersion: v1
 clusters:
 - cluster:
@@ -485,4 +486,30 @@ users:
   user:
     client-certificate-data: ...
     client-key-data: ...
+```
+
+## Kube API Server
+
+```yaml
+# /etc/kubernetes/manifests/kube-apiserver.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: 172.30.1.2:6443
+  labels:
+    component: kube-apiserver
+    tier: control-plane
+  name: kube-apiserver
+  namespace: kube-system
+spec:
+  containers:
+  - command:
+    - kube-apiserver
+    - --advertise-address=172.30.1.2
+    - ...
+    - --enable-admission-plugins=NodeRestriction,LimitRanger,Priority
+    - ...
+    - --secure-port=6443
+    - ...
 ```
