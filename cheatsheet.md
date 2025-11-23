@@ -366,6 +366,10 @@ spec:
       storage: 1Gi
 ```
 
+### Storage Classes
+
+TODO
+
 ### Roles
 
 ```yaml
