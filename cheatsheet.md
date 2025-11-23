@@ -467,6 +467,26 @@ spec:
   description: buy yellow ones
 ```
 
+### Service Accounts
+
+TODO
+
+### Secrets
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret1
+data:
+  user: dGVzdAo=
+  pass: cHdkCg==
+```
+
+#### Environment Variables
+
+TODO
+
 ## Kube Config
 
 ```yaml
