@@ -363,7 +363,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
-  ingressClassName: nginx
+  ingressClassName: nginx # k get ingressclass
   rules:
   - host: world.universe.mine
     http:
