@@ -129,6 +129,13 @@ k scale deploy wonderful-v2 --replicas 2
 k scale deploy wonderful-v1 --replicas 8
 ```
 
+### Rollbacks
+
+```shell
+k rollout history deploy api-new-c32
+k rollout undo deploy api-new-c32
+```
+
 ### Helm
 
 ```shell
