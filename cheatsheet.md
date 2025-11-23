@@ -122,6 +122,14 @@ k scale deploy wonderful-v2 --replicas 2
 k scale deploy wonderful-v1 --replicas 8
 ```
 
+### Helm
+
+```shell
+helm list -A
+helm uninstall apiserver -n team-yellow
+helm install dev falcosecurity/falco -n team-yellow
+```
+
 ## Objects
 
 ### Pods
