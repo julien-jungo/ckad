@@ -151,6 +151,7 @@ k rollout undo deploy api-new-c32
 helm list -A
 helm uninstall apiserver -n team-yellow
 helm install dev falcosecurity/falco -n team-yellow
+helm upgrade internal-issue-report-apiv2 killershell/nginx -n mercury
 ```
 
 ## Objects
