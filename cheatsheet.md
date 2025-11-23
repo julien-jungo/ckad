@@ -44,6 +44,13 @@ alias ka='kubectl apply -f'
 
 ## Commands
 
+### Base64
+
+```shell
+echo 'test' | base64
+echo 'dGVzdAo=' | base64 -d
+```
+
 ### Contexts
 
 ```shell
