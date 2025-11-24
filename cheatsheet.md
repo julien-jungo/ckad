@@ -333,6 +333,27 @@ spec:
 status: {}
 ```
 
+#### File Content
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configmap-web-moon-html
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <title>Web Moon Webpage</title>
+    </head>
+    <body>
+      This is some great content.
+    </body>
+    </html>
+```
+
 ### Persistent Volumes
 
 ```yaml
