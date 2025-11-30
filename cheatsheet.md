@@ -4,23 +4,25 @@
 
 <https://kubernetes.io/docs/home/>
 
-## Copy/Paste
+## Exam Environment
 
-### Browser
+### Copy/Paste
+
+#### Browser
 
 ```shell
 CTRL+C
 CTRL+V
 ```
 
-### Terminal
+#### Terminal
 
 ```shell
 CTRL+SHIFT+C
 CTRL+SHIFT+V
 ```
 
-## Vim Settings
+### Vim Settings
 
 ```text
 # ~/.vimrc
@@ -29,7 +31,7 @@ set tabstop=2
 set shiftwidth=2
 ```
 
-## SSH
+### SSH
 
 ```shell
 ssh node01
