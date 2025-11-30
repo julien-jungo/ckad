@@ -110,6 +110,12 @@ k -n sun expose -h
 k -n sun expose deploy sunny --name sun-srv --port 9999 --target-port 80
 ```
 
+#### Secrets
+
+```shell
+k create secret generic app-secret --from-literal=password=pass123 -n session283884
+```
+
 ### Rollouts
 
 #### Rolling Update
