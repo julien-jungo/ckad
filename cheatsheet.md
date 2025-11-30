@@ -189,6 +189,99 @@ spec:
           name: site
 ```
 
+#### Environment
+
+##### Config Maps
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: env-pod
+  name: env-pod
+spec:
+  containers:
+  - image: busybox
+    name: env-pod
+    resources: {}
+    command:
+    - env
+    envFrom:
+    - configMapRef:
+        name: env-config
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
+```
+
+##### Secrets
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: db-pod
+  name: db-pod
+  namespace: session283884
+spec:
+  containers:
+  - image: busybox
+    name: db-pod
+    resources: {}
+    command:
+    - env
+    envFrom:
+    - secretRef:
+        name: db-secret
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
+```
+
+#### Shared Volumes
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: shared-pod
+  name: shared-pod
+  namespace: volumes
+spec:
+  containers:
+  - image: nginx
+    name: writer
+    command:
+    - sh
+    - -c
+    - |
+      while true; do
+        date >> /data/out.log
+        sleep 1
+      done
+    volumeMounts:
+    - name: data
+      mountPath: /data
+  - image: nginx
+    name: reader
+    command:
+    - sh
+    - -c
+    - tail -f /data/out.log
+    volumeMounts:
+    - name: data
+      mountPath: /data
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+  volumes:
+  - name: data
+    emptyDir: {}
+status: {}
+```
+
 #### Resources
 
 ```yaml
