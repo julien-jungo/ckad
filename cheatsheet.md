@@ -118,6 +118,24 @@ k -n sun expose deploy sunny --name sun-srv --port 9999 --target-port 80
 k create secret generic app-secret --from-literal=password=pass123 -n session283884
 ```
 
+#### Service Accounts
+
+```shell
+k create sa build-bot -n session283884
+```
+
+#### Roles
+
+```shell
+k -n session283884 create role pod-reader --verb=get,list,watch --resource=pods
+```
+
+#### Role Bindings
+
+```shell
+k -n session283884 create rolebinding read-pods-binding --role=pod-reader --serviceaccount=session283884:build-bot
+```
+
 ### Rollouts
 
 #### Rolling Update
@@ -507,22 +525,51 @@ rules:
     verbs: ["*"]
 ```
 
+### Service Accounts
+
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: build-bot
+  namespace: session283884
+```
+
+### Roles
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: pod-reader
+  namespace: session283884
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - get
+  - list
+  - watch
+```
+
 ### Role Bindings
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: developer-rolebinding
-  namespace: development
-subjects:
-  - kind: User
-    name: martin
-    apiGroup: rbac.authorization.k8s.io
+  name: read-pods-binding
+  namespace: session283884
 roleRef:
-  kind: Role
-  name: developer-role
   apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: pod-reader
+subjects:
+- kind: ServiceAccount
+  name: build-bot
+  namespace: session283884
 ```
 
 ### Ingress
