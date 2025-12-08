@@ -87,6 +87,10 @@ k run tmp --restart=Never --rm -i --image=nginx:alpine -n space1 -- curl -m 5 mi
 k exec -it pod1 -- /bin/sh
 ```
 
+```shell
+k port-forward pod1 8080:80
+```
+
 ### Create
 
 #### Pods
