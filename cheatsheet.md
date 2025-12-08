@@ -116,6 +116,16 @@ k -n sun expose -h
 k -n sun expose deploy sunny --name sun-srv --port 9999 --target-port 80
 ```
 
+#### Ingress
+
+```shell
+k create ing web-ingress -n $NS --rule="web.example.com/*=web:80" --class=nginx
+k get node -o wide
+echo '172.30.1.2 web.example.com' >> /etc/hosts
+k get svc --all-namespaces
+curl web.example.com:30000
+```
+
 #### Secrets
 
 ```shell
