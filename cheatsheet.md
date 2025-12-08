@@ -87,6 +87,18 @@ docker images
 docker push localhost:5000/busybox-sleep:latest
 ```
 
+### Run
+
+```shell
+docker run -d --name busybox-sleep localhost:5000/busybox-sleep:latest
+```
+
+### Logs
+
+```shell
+docker logs busybox-sleep
+```
+
 ## Kustomize
 
 TODO
@@ -102,15 +114,6 @@ TODO
 ```shell
 echo 'test' | base64
 echo 'dGVzdAo=' | base64 -d
-```
-
-### Docker
-
-```shell
-docker build -t registry.killer.sh:5000/sun-cipher:v1-docker .
-docker push registry.killer.sh:5000/sun-cipher:v1-docker
-docker run -d --name sun-cipher registry.killer.sh:5000/sun-cipher:v1-docker
-docker logs sun-cipher
 ```
 
 ### Contexts
