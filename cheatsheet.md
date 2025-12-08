@@ -44,6 +44,57 @@ alias k='kubectl'
 alias ka='kubectl apply -f'
 ```
 
+## Exports
+
+```shell
+export NS=development
+k get pods -n $NS
+```
+
+## Docker
+
+### Dockerfile
+
+```dockerfile
+FROM busybox
+
+ENTRYPOINT ["sleep"]
+
+CMD ["3600"]
+```
+
+### Build
+
+```shell
+docker build -t busybox-sleep:latest .
+```
+
+### Tag
+
+```shell
+docker tag busybox-sleep:latest localhost:5000/busybox-sleep:latest
+```
+
+### List
+
+```shell
+docker images
+```
+
+### Push
+
+```shell
+docker push localhost:5000/busybox-sleep:latest
+```
+
+## Kustomize
+
+TODO
+
+## Helm
+
+TODO
+
 ## Commands
 
 ### Base64
