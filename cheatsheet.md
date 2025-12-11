@@ -101,7 +101,132 @@ docker logs busybox-sleep
 
 ## Kustomize
 
-TODO
+### Folder Structure
+
+```text
+k8s/
+├─ base/
+│  ├─ kustomization.yaml
+│  ├─ nginx-deploy.yaml
+│  └─ ...
+└─ overlays/
+   ├─ dev/
+   │  ├─ nginx-deploy.yaml
+   │  └─ ...
+   ├─ test/
+   │  ├─ nginx-deploy.yaml
+   │  └─ ...
+   └─ prod/
+      ├─ nginx-deploy.yaml
+      └─ ...
+```
+
+### Example
+
+#### Base
+
+```yaml
+# base/nginx-deploy.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: nginx
+  template:
+    metadata:
+      labels:
+        component: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+```
+
+#### Overlays
+
+```yaml
+# overlays/dev/nginx-deploy.yaml
+
+spec:
+  replicas: 1
+```
+
+```yaml
+# overlays/test/nginx-deploy.yaml
+
+spec:
+  replicas: 2
+```
+
+```yaml
+# overlays/prod/nginx-deploy.yaml
+
+spec:
+  replicas: 5
+```
+
+#### kustomization.yaml
+
+```yaml
+# base/kustomization.yaml
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- base/nginx-deploy.yaml
+commonLabels:
+  app: nginx
+```
+
+```yaml
+# overlays/dev/kustomization.yaml
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+bases:
+- ../../base
+resources:
+- nginx-deploy.yaml
+namespace: dev
+nameSuffix: -dev
+```
+
+```yaml
+# overlays/test/kustomization.yaml
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+bases:
+- ../../base
+resources:
+- nginx-deploy.yaml
+namespace: test
+nameSuffix: -test
+```
+
+```yaml
+# overlays/prod/kustomization.yaml
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+bases:
+- ../../base
+resources:
+- nginx-deploy.yaml
+namespace: prod
+nameSuffix: -prod
+```
+
+### CLI
+
+```shell
+k apply -k overlays/dev
+```
 
 ## Helm
 
