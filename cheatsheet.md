@@ -152,6 +152,10 @@ spec:
 ```yaml
 # overlays/dev/nginx-deploy.yaml
 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deploy
 spec:
   replicas: 1
 ```
@@ -159,6 +163,10 @@ spec:
 ```yaml
 # overlays/test/nginx-deploy.yaml
 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deploy
 spec:
   replicas: 2
 ```
@@ -166,6 +174,10 @@ spec:
 ```yaml
 # overlays/prod/nginx-deploy.yaml
 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deploy
 spec:
   replicas: 5
 ```
@@ -175,8 +187,6 @@ spec:
 ```yaml
 # base/kustomization.yaml
 
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
 resources:
 - base/nginx-deploy.yaml
 commonLabels:
@@ -186,12 +196,10 @@ commonLabels:
 ```yaml
 # overlays/dev/kustomization.yaml
 
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-bases:
-- ../../base
 resources:
-- nginx-deploy.yaml
+- ../../base
+patches:
+- path: nginx-deploy.yaml
 namespace: dev
 nameSuffix: -dev
 ```
@@ -199,12 +207,10 @@ nameSuffix: -dev
 ```yaml
 # overlays/test/kustomization.yaml
 
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-bases:
-- ../../base
 resources:
-- nginx-deploy.yaml
+- ../../base
+patches:
+- path: nginx-deploy.yaml
 namespace: test
 nameSuffix: -test
 ```
@@ -212,12 +218,10 @@ nameSuffix: -test
 ```yaml
 # overlays/prod/kustomization.yaml
 
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-bases:
-- ../../base
 resources:
-- nginx-deploy.yaml
+- ../../base
+patches:
+- path: nginx-deploy.yaml
 namespace: prod
 nameSuffix: -prod
 ```
