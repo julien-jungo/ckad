@@ -770,7 +770,14 @@ spec:
 
 ### Storage Classes
 
-TODO
+```yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: moon-retain
+provisioner: moon-retainer
+reclaimPolicy: Retain
+```
 
 ### Roles
 
@@ -934,10 +941,6 @@ spec:
   description: buy yellow ones
 ```
 
-### Service Accounts
-
-TODO
-
 ### Secrets
 
 ```yaml
@@ -949,10 +952,6 @@ data:
   user: dGVzdAo=
   pass: cHdkCg==
 ```
-
-#### Environment Variables
-
-TODO
 
 ## Kube Config
 
